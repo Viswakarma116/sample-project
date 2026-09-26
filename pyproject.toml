@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sample-project"
+version = "0.1.0"
+description = "A small, well-tested Python sample project"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Sample Project Contributors" }]
+
+[project.scripts]
+sample-project = "sample_project.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
