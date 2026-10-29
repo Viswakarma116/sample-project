@@ -9,9 +9,37 @@ description = "A small, well-tested Python sample project"
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [{ name = "Sample Project Contributors" }]
+license = "MIT"
+keywords = ["example", "python", "starter", "template"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/Viswakarma116/sample-project"
+Repository = "https://github.com/Viswakarma116/sample-project"
+Issues = "https://github.com/Viswakarma116/sample-project/issues"
+Changelog = "https://github.com/Viswakarma116/sample-project/blob/main/CHANGELOG.md"
 
 [project.scripts]
 sample-project = "sample_project.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

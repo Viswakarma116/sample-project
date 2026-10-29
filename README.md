@@ -1,50 +1,76 @@
 # Sample Project
 
-A small, dependency-free Python project demonstrating a clean repository structure, a command-line entry point, automated tests, and secure publishing to PyPI with GitHub Actions.
+[![CI](https://github.com/Viswakarma116/sample-project/actions/workflows/ci.yml/badge.svg)](https://github.com/Viswakarma116/sample-project/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/sample-project.svg)](https://pypi.org/project/sample-project/)
+[![Python](https://img.shields.io/pypi/pyversions/sample-project.svg)](https://pypi.org/project/sample-project/)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## Project structure
+A small, dependency-free Python project demonstrating a maintainable package layout, a command-line interface, automated quality checks, and secure PyPI publishing with GitHub Actions.
 
-```text
-sample-project/
-├── .github/workflows/ci.yml       # Test and compile checks
-├── .github/workflows/publish.yml  # PyPI CD workflow
-├── src/sample_project/             # Application package
-├── tests/                          # Unit tests
-├── pyproject.toml                  # Build and package metadata
-└── README.md
-```
+## Features
 
-## Run locally
+- Modern `src/` package layout
+- Zero runtime dependencies
+- Installable command-line tool: `sample-project`
+- Unit tests using the Python standard library
+- Ruff linting and multi-version CI
+- Release-based PyPI publishing with Trusted Publishing
+
+## Quick start
+
+Requires Python 3.9 or newer.
 
 ```bash
-PYTHONPATH=src python -m sample_project.cli Ada
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -e .
+sample-project Ada
 # Hello, Ada!
 ```
 
-## Run tests
+Without installing the package:
 
 ```bash
-PYTHONPATH=src python -m unittest discover -s tests -v
+PYTHONPATH=src python -m sample_project.cli Ada
 ```
 
-## Configure PyPI publishing
+## Development
 
-The publish workflow uses **PyPI Trusted Publishing** through GitHub's OIDC identity token. No long-lived PyPI API token is stored in the repository.
+```bash
+make check       # tests, lint, build, and repository hygiene checks
+make test        # unit tests
+make lint        # Ruff lint and formatting checks
+make build       # source distribution and wheel
+```
 
-One-time setup for the repository owner:
+The project intentionally keeps runtime dependencies at zero. Development tools are installed on demand by the Makefile or CI workflow.
 
-1. Create the `sample-project` project on PyPI, or register it as a pending publisher.
-2. In PyPI, add a trusted publisher for this GitHub repository:
-   - Owner: `Viswakarma116`
-   - Repository: `sample-project`
-   - Workflow: `publish.yml`
-   - Environment: `pypi`
-3. Create a GitHub environment named `pypi` under **Settings → Environments**. Add an optional required reviewer for release approval.
-4. Update the version in `pyproject.toml` before each release.
-5. Create and publish a GitHub Release. The `publish.yml` workflow will build the package and publish it to PyPI automatically.
+## Release process
 
-The workflow is intentionally triggered by **published GitHub Releases**, rather than every push, so normal development cannot publish an unintended package.
+1. Update the version in `pyproject.toml` and add release notes to `CHANGELOG.md`.
+2. Run `make check` locally.
+3. Open a pull request and merge it to `main`.
+4. Create and publish a GitHub Release matching the package version.
+5. GitHub Actions builds and publishes the distributions to PyPI using OIDC Trusted Publishing.
+
+Before the first release, configure the PyPI trusted publisher and GitHub `pypi` environment as described in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Repository layout
+
+```text
+.github/                 # CI, release automation, and contribution templates
+src/sample_project/      # Package source
+tests/                   # Unit tests
+CHANGELOG.md             # Release history
+CONTRIBUTING.md          # Development and release guide
+pyproject.toml           # Package metadata and tool configuration
+```
+
+## Contributing
+
+Bug reports, feature requests, documentation improvements, and pull requests are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) first and use the provided issue and pull request templates.
 
 ## License
 
-Released under the MIT License.
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.
